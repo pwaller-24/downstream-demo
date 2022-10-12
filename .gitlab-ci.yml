@@ -23,7 +23,7 @@ build:
   artifacts:
     paths:
       # Should be relative to your root directory
-      - test.txt
+      - demo.txt
     reports:
       # To ensure we've access to this file in the next stage
       dotenv: generate_executables.env
