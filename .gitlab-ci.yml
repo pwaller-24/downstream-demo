@@ -20,10 +20,12 @@ build:
     - echo "This is a demo" >> demo.txt
   script:
     - echo " Building"
+    - 'curl --location --output artifacts.zip --header "JOB-TOKEN: $CI_JOB_TOKEN" "https://gitlab.com/api/v4/projects/40163429/jobs/artifacts/main/download?job=build"'
   artifacts:
     paths:
       # Should be relative to your root directory
       - demo.txt
+      - artifacts.zip
     reports:
       # To ensure we've access to this file in the next stage
       dotenv: generate_executables.env
