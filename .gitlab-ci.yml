@@ -24,6 +24,7 @@ build:
     #- 'curl --location --header "JOB-TOKEN: $CI_JOB_TOKEN" "https://gitlab.com/api/v4/projects/40163429/jobs/artifacts/master/raw/some/release/file.pdf?job=pdf"'
     - ls
     - unzip artifacts.zip
+    - sleep 360
   artifacts:
     paths:
       # Should be relative to your root directory
