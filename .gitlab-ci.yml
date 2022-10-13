@@ -20,7 +20,8 @@ build:
     - echo "This is a demo" >> demo.txt
   script:
     - echo " Building"
-    - 'curl --location --output artifacts.zip --header "JOB-TOKEN: $CI_JOB_TOKEN" "https://gitlab.com/api/v4/projects/40163429/jobs/artifacts/main/download?job=build"'
+    - 'curl --location --output artifacts.zip --header "JOB-TOKEN: $CI_JOB_TOKEN" "https://gitlab.com/api/v4/projects/40163429/jobs/artifacts/master/download?job=build"'
+    #- 'curl --location --header "JOB-TOKEN: $CI_JOB_TOKEN" "https://gitlab.com/api/v4/projects/40163429/jobs/artifacts/master/raw/some/release/file.pdf?job=pdf"'
     - ls
     - unzip artifacts.zip
   artifacts:
