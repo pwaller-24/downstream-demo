@@ -18,12 +18,14 @@ build:
     # Writing GE_JOB_ID variable to environment file, will need the value in the next stage.
     - echo GE_JOB_ID=$CI_JOB_ID >> generate_executables.env
     - echo "This is a demo" >> demo.txt
+    - echo $ENVIRONMENT
   script:
     - echo " Building"
     - 'curl --location --output artifacts.zip --header "JOB-TOKEN: $CI_JOB_TOKEN" "https://gitlab.com/api/v4/projects/40163429/jobs/artifacts/master/download?job=build"'
     #- 'curl --location --header "JOB-TOKEN: $CI_JOB_TOKEN" "https://gitlab.com/api/v4/projects/40163429/jobs/artifacts/master/raw/some/release/file.pdf?job=pdf"'
     - ls
     - unzip artifacts.zip
+    - echo $ENVIRONMENT
     - sleep 360
   artifacts:
     paths:
