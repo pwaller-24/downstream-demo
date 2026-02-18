@@ -61,9 +61,9 @@ variables:
   PARENT_PIPELINE_SOURCE: meow
 
 stages:
-  plan
-  apply
-  offboard
+  - plan
+  - apply
+  - offboard
 
 Plan:
   stage: plan
