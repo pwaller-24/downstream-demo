@@ -47,10 +47,12 @@ build:
 
 apply:
   stage: deploy
-rules:
-  - if: $PARENT_BRANCH == "master"
-    when: manual 
-  - if: '$CI_COMMIT_BRANCH == "master" && $CI_PIPELINE_SOURCE == "schedule"'
-  - if: '$CI_COMMIT_BRANCH == "master" && $CI_COMMIT_MESSAGE =~ /^OFFBOARD:/'
-  - if: '$CI_COMMIT_BRANCH == "master"'
-    when: manual
+  rules:
+    - if: $PARENT_BRANCH == "master"
+      when: manual 
+    - if: '$CI_COMMIT_BRANCH == "master" && $CI_PIPELINE_SOURCE == "schedule"'
+    - if: '$CI_COMMIT_BRANCH == "master" && $CI_COMMIT_MESSAGE =~ /^OFFBOARD:/'
+    - if: '$CI_COMMIT_BRANCH == "master"'
+      when: manual
+  script:
+    - echo "This is the apply phase of the build"
