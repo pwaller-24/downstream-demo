@@ -76,6 +76,7 @@ Plan:
     - echo "This is the plan phase for TFC"
     - echo "PARENT_BRANCH = $PARENT_BRANCH"
     - echo "PARENT_PIPELINE_SOURCE = $PARENT_PIPELINE_SOURCE"
+    - echo "CI_COMMIT_BRANCH = $CI_COMMIT_BRANCH"
 
 Apply:
   dependencies:
