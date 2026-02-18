@@ -74,6 +74,8 @@ Plan:
     - if: $CI_PIPELINE_SOURCE == "merge_request_event"
   script:
     - echo "This is the plan phase for TFC"
+    - echo "PARENT_BRANCH = $PARENT_BRANCH"
+    - echo "PARENT_PIPELINE_SOURCE = $PARENT_PIPELINE_SOURCE"
 
 Apply:
   dependencies:
