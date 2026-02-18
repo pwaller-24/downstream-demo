@@ -83,6 +83,7 @@ Apply:
     - Plan
   stage: apply
   rules:
+    # rules for apply phase #
     - if: '$PARENT_PIPELINE_SOURCE == "merge_request_event"'
       when: never
     - if: '$CI_COMMIT_BRANCH == "master" && $CI_PIPELINE_SOURCE == "schedule"'
