@@ -1,0 +1,37 @@
+name: Reusable Workflow - Receive Branch and Event
+
+on:
+  workflow_call:
+    inputs:
+      branch:
+        description: "Branch name from upstream"
+        required: true
+        type: string
+      event:
+        description: "Triggering event from upstream"
+        required: true
+        type: string
+
+jobs:
+  tfc_plan:
+    runs-on: ubuntu-latest
+    if: |
+      inputs.event == 'pull_request' ||
+      (inputs.event == 'push' && inputs.branch == 'master')
+    steps:
+      - name: Print received inputs
+        run: |
+          echo "This is Terraform Cloud plan phase"
+          echo "Branch: ${{ inputs.branch }}"
+          echo "Event:  ${{ inputs.event }}"
+
+  tfc_apply:
+    runs-on: ubuntu-latest
+    if: |
+      inputs.branch == 'master'
+    steps:
+      - name: Print received inputs
+        run: |
+          echo "This is Terraform Cloud apply phase"
+          echo "Branch: ${{ inputs.branch }}"
+          echo "Event:  ${{ inputs.event }}"

@@ -1,0 +1,23 @@
+name: Reusable - Receive branch & event
+
+on:
+  workflow_call:
+    inputs:
+      branch:
+        description: "The branch name that triggered the caller workflow"
+        required: true
+        type: string
+      event:
+        description: "The triggering event name in the caller repo"
+        required: true
+        type: string
+
+
+jobs:
+  do-something:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Show received inputs
+        run: |
+          echo "Branch from caller: ${{ inputs.branch }}"
+          echo "Event from caller:  ${{ inputs.event }}"
