@@ -1,0 +1,70 @@
+on:
+  push:
+    branches:
+      - master
+  pull_request:
+    branches:
+      - master
+  schedule:
+    # Scheduled runs for automation
+    - cron: '0 0 * * *'  # Adjust cron schedule as needed
+  workflow_dispatch:  # Allow manual trigger
+
+env:
+  PARENT_BRANCH: woof
+  PARENT_PIPELINE_SOURCE: meow
+
+jobs:
+  plan:
+    name: Plan
+    runs-on: ubuntu-latest
+    if: |
+      github.ref_name == 'master' ||
+      github.event_name == 'pull_request'
+    outputs:
+      plan-status: ${{ steps.plan-step.outcome }}
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Plan phase
+        id: plan-step
+        run: |
+          echo "This is the plan phase for TFC"
+          echo "PARENT_BRANCH = ${{ env.PARENT_BRANCH }}"
+          echo "PARENT_PIPELINE_SOURCE = ${{ env.PARENT_PIPELINE_SOURCE }}"
+          echo "CI_COMMIT_BRANCH = ${{ github.ref_name }}"
+          echo "Event name = ${{ github.event_name }}"
+
+  apply:
+    name: Apply
+    runs-on: ubuntu-latest
+    needs: plan
+    if: |
+      github.ref_name == 'master' && (
+        github.event_name == 'schedule' ||
+        github.event_name == 'workflow_dispatch' ||
+        contains(github.event.head_commit.message, 'OFFBOARD:')
+      )
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Apply phase
+        run: |
+          echo "This is the apply phase for TFC"
+
+  offboard-users:
+    name: OffboardUsers
+    runs-on: ubuntu-latest
+    needs: plan
+    if: |
+      github.ref_name == 'master' &&
+      github.event_name == 'schedule'
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Offboard phase
+        run: |
+          echo "This is the OffBoard phase to remove users"
