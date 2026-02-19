@@ -15,6 +15,9 @@ on:
 jobs:
   show-inputs:
     runs-on: ubuntu-latest
+    if: |
+      inputs.event == 'pull_request' ||
+      (inputs.event == 'push' && inputs.branch == 'demo-test')
     steps:
       - name: Print received inputs
         run: |
