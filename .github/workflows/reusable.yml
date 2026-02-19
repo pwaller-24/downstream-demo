@@ -13,13 +13,25 @@ on:
         type: string
 
 jobs:
-  show-inputs:
+  tfc_plan:
     runs-on: ubuntu-latest
     if: |
       inputs.event == 'pull_request' ||
-      (inputs.event == 'push' && inputs.branch == 'demo-test')
+      (inputs.event == 'push' && inputs.branch == 'master')
     steps:
       - name: Print received inputs
         run: |
+          echo "This is Terraform Cloud plan phase"
+          echo "Branch: ${{ inputs.branch }}"
+          echo "Event:  ${{ inputs.event }}"
+
+  tfc_apply:
+    runs-on: ubuntu-latest
+    if: |
+      inputs.branch == 'master'
+    steps:
+      - name: Print received inputs
+        run: |
+          echo "This is Terraform Cloud apply phase"
           echo "Branch: ${{ inputs.branch }}"
           echo "Event:  ${{ inputs.event }}"
