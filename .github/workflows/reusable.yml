@@ -1,0 +1,22 @@
+name: Reusable Workflow - Receive Branch and Event
+
+on:
+  workflow_call:
+    inputs:
+      branch:
+        description: "Branch name from upstream"
+        required: true
+        type: string
+      event:
+        description: "Triggering event from upstream"
+        required: true
+        type: string
+
+jobs:
+  show-inputs:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Print received inputs
+        run: |
+          echo "Branch: ${{ inputs.branch }}"
+          echo "Event:  ${{ inputs.event }}"
